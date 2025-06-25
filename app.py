@@ -51,7 +51,7 @@ if st.button("Scan Titles") and api_key and channel_id:
                 st.success("Scan complete!")
 if st.button("Scan Titles") and api_key and channel_id:
     try:
-        st.info("Fetching video titles
+        st.info("Fetching video titles)
                 st.dataframe(df_results)
     except Exception as e:
         st.error(f"Something went wrong: {e}")
