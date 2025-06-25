@@ -51,7 +51,17 @@ if st.button("Scan Titles") and api_key and channel_id:
                 st.success("Scan complete!")
 if st.button("Scan Titles") and api_key and channel_id:
     try:
-        st.info("Fetching video titles")
-                st.dataframe(df_results)
+        st.info("Fetching video titles...")
+        titles = fetch_video_titles(api_key, channel_id, max_results)
+        df_results = scan_titles(titles, FLAGGED_WORDS)
+        st.success("Scan complete!")
+        st.dataframe(df_results)
+
+        # Optional: Excel download button
+        to_excel = df_results.to_excel(index=False)
+        st.download_button(label="Download Results as Excel",
+                           data=to_excel,
+                           file_name="title_scan_results.xlsx",
+                           mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     except Exception as e:
         st.error(f"Something went wrong: {e}")
