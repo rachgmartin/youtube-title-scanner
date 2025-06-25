@@ -50,15 +50,18 @@ if st.button("Scan Titles") and api_key and channel_id:
                 df_results = scan_titles_weighted(titles, df_keywords, df_severity)
                 st.success("Scan complete!")
                 st.dataframe(df_results)
+
+                # ✅ Excel download block
                 from io import BytesIO
-output = BytesIO()
-with pd.ExcelWriter(output, engine='openpyxl') as writer:
-    df_results.to_excel(writer, index=False, sheet_name='Scan Results')
-st.download_button(
-    label="Download Excel File",
-    data=output.getvalue(),
-    file_name="youtube_title_scan_results.xlsx",
-    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-)
+                output = BytesIO()
+                with pd.ExcelWriter(output, engine='openpyxl') as writer:
+                    df_results.to_excel(writer, index=False, sheet_name='Scan Results')
+                st.download_button(
+                    label="Download Excel File",
+                    data=output.getvalue(),
+                    file_name="youtube_title_scan_results.xlsx",
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                )
     except Exception as e:
         st.error(f"Something went wrong: {e}")
+
