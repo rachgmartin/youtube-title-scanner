@@ -1,3 +1,4 @@
+import re
 def scan_titles_weighted(titles, flagged_words):
     def get_word_tiers(word):
         try:
